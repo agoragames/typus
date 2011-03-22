@@ -10,7 +10,7 @@ class Admin::SessionController < Admin::BaseController
 
   def create
     user_scope = if Typus.user_class.scopes.include?(:in_domain)
-                   Typus.user_class.in_domain(request.env)
+                   Typus.user_class.in_domain(request.host)
                  else
                    Typus.user_class
                  end
