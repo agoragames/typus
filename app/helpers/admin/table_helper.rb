@@ -54,7 +54,7 @@ module Admin
       resource_actions.map do |body, url, options|
         if admin_user.can?(url[:action], model.name)
           link_to Typus::I18n.t(body),
-                  params.dup.cleanup.merge(url).merge(:controller => model.to_resource, :id => item.id),
+                  params.dup.cleanup.merge(url).merge(:controller => model.to_resource, :id => item.id, :association_name => association_name),
                   options
         end
       end.join(" / ").html_safe
