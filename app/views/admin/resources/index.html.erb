@@ -15,9 +15,19 @@
 <%= render 'index' %>
 
 <ul class="predefined_filters">
-  <% predefined_filters.each do |filter, action, scope| %>
+  <% predefined_filters.each do |filter, action, scope, link_condition| %>
     <% url = action.is_a?(String) ? params.dup.cleanup.merge(:action => action) : action %>
-    <li><%= link_to Typus::I18n.t(filter), url %> <%= "(#{@resource.send(scope).count})" if scope && @resource.respond_to?(scope) %></li>
+    <li>
+      <%= link_to_unless link_condition.respond_to?(:call) ? link_condition.call : false, Typus::I18n.t(filter), url %> 
+
+      <% if scope %>
+        <% if scope.is_a?(String) && @resource.respond_to?(scope) %>
+          <%= "(#{@resource.send(scope).count})" %>
+        <% elsif scope.respond_to?(:call) %>
+          <%= "(#{scope.call(@resource).count})" %>
+        <% end %>
+      <% end %>
+    </li>
   <% end %>
 </ul>
 
