@@ -41,6 +41,7 @@
 <% if @items.to_a.any? -%>
   <%= build_list(@resource, fields, @items) %>
   <%= will_paginate(@items, Typus.pagination) %>
+  <p style="text-align: right"><%= page_entries_info(@items) %></p>
 <% else %>
   <p><%= Typus::I18n.t("No %{resources} found.", :resources => @resource.model_name.human.downcase.pluralize) %></p>
 <% end %>
