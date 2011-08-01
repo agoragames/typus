@@ -7,7 +7,7 @@
 
   <%= form %>
 
-  <% if @items.any? -%>
+  <% if @items.to_a.any? -%>
     <%= table %>
     <%= will_paginate(@items, Typus.pagination.merge(:anchor => association_name)) %>
   <% else %>

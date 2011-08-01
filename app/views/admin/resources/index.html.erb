@@ -38,7 +38,7 @@
   </div>
 <% end %>
 
-<% if @items.any? -%>
+<% if @items.to_a.any? -%>
   <%= build_list(@resource, fields, @items) %>
   <%= will_paginate(@items, Typus.pagination) %>
 <% else %>
